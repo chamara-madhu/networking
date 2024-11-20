@@ -55,8 +55,9 @@
           docker stop $CONTAINER_ID
           docker rm $CONTAINER_ID
         else
-          echo "No container found running on port 8080"
+          echo "No container found running on port 80"
         fi
+
     # Run Docker container
     - name: Run Docker container
       ansible.builtin.command:
