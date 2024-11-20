@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: "2010-09-09" # Version of the AWS CloudFormation template format used
+Description: CloudFormation template to set up an EC2 instance for running a Docker container # Description of what the template does
+
+Resources:
+  networkingInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup # EC2 - SecurityGroup
+    Properties:
+      GroupDescription: Security group for SSH and HTTP access to EC2 instance # Description of the security group
+      SecurityGroupIngress:
+        # Inbound rule to allow SSH access (port 22) from any IP address
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0 # Allows SSH access from any IP address
+
+        # Inbound rule to allow HTTP access (port 80) from any IP address
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0 # Allows HTTP access from any IP address
+
+  networkingEC2Instance:
+    Type: AWS::EC2::Instance # EC2 - Instance
+    Properties:
+      # AvailabilityZone: eu-west-1a # Region (Ireland) - eu-west-1a, eu-west-1b, or eu-west-1c
+      InstanceType: t2.micro # Set to t2.micro, which is free-tier eligible
+      KeyName: networkingEC2InstanceKeyPair
+      ImageId: ami-03ca36368dbc9cfa1 # Uses an Amazon Linux 2 AMI
+      SecurityGroups:
+        - !Ref networkingInstanceSecurityGroup # Corrected: referencing the correct security group
+
+Outputs:
+  InstancePublicIP:
+    Description: Public IP address of the EC2 instance
+    Value: !GetAtt networkingEC2Instance.PublicIp # Corrected: referencing the correct EC2 instance resource
