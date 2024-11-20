@@ -52,4 +52,5 @@ jobs:
       # Deploy the html and css files using Ansible
       - name: Deploy with Ansible
         run: |
+          chmod 400 networkingEC2InstanceKeyPair.pem
           ansible-playbook -i inventory.ini ansible-playbook.yml
