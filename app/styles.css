@@ -6,6 +6,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-color: #590a48;
 }
 
 .thank-you-container {
