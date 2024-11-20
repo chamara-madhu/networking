@@ -49,7 +49,7 @@
     # Stop and remove existing Docker container (if any)
     - name: Stop and remove existing Docker container
       ansible.builtin.shell: |
-        CONTAINER_ID=$(docker ps -q -f "publish=8080")
+        CONTAINER_ID=$(docker ps -q -f "publish=80")
         if [ -n "$CONTAINER_ID" ]; then
           echo "Stopping and removing existing container with ID: $CONTAINER_ID"
           docker stop $CONTAINER_ID
