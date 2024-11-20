@@ -29,12 +29,6 @@ jobs:
           sudo apt update
           sudo apt install -y ansible sshpass
 
-      # Deploy the html and css files using Ansible
-      - name: Deploy with Ansible
-        run: |
-          chmod 400 networkingEC2InstanceKeyPair.pem
-          ansible-playbook -i inventory.ini ansible-playbook.yml
-
       # Stop and remove any existing Docker container running on port 8080
       - name: Stop and remove existing Docker container
         run: |
@@ -48,7 +42,8 @@ jobs:
             echo "No container found running on port 8080"
           fi
 
-      # Run the new Docker container on port 8080
-      - name: Run Docker container
+      # Deploy the html and css files using Ansible
+      - name: Deploy with Ansible
         run: |
-          docker run -d -p 8080:80 basicapp:latest
+          chmod 400 networkingEC2InstanceKeyPair.pem
+          ansible-playbook -i inventory.ini ansible-playbook.yml
